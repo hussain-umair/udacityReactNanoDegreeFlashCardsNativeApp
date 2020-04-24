@@ -9,8 +9,18 @@ import { white, purple, red, orange } from '../utils/colors'
 class DeckView extends React.Component{
 
     render(){
-        const deck = this.props.navigation.state.params.entryId
+        const deck = this.props.route.params.entryId
+        // console.log('deck View: ',this.props.route.params.entryId)
         const {decks} = this.props
+        if(deck===undefined){
+            return(
+                <View>
+                    <Text>
+                        ...loading
+                    </Text>
+                </View>
+            )
+        }
         return(
             <View style={styles.container}>
                 <View style={styles.card}>
@@ -27,7 +37,7 @@ class DeckView extends React.Component{
                     styles={styles}
                     text={'Start Quiz'}
                     color={red}
-                    onPress={()=>this.props.navigation.navigate('Quiz',{entryID:deck})}
+                    onPress={()=>this.props.navigation.navigate('Quiz',{entryId:deck})}
                     />
                 </View>
             </View>
@@ -69,10 +79,19 @@ const styles=StyleSheet.create({
         },
         shadowRadius:4,
         shadowOpacity:1
+    },
+    mainText:{
+        fontSize:40,
+        color:purple,
+    },
+    subText:{
+        fontSize:30,
+        color:white,
+        marginBottom:160
     }
 })
 
-function mapStateToProps({decks}){
+function mapStateToProps(decks){
     return {
         decks
     }

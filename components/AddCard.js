@@ -19,10 +19,11 @@ class AddCard extends React.Component{
         this.props.dispatch(addCard({question,answer,correctAnswer,deck}))
         addCardToDeck(deck,{question,answer,correctAnswer})
         this.setState({question:'',answer:'',correctAnswer:''})
-        this.props.navigation.dispatch(NavigationActions.back({key:null}))
+        // this.props.navigation.dispatch(NavigationActions.back(null))
+        this.props.navigation.goBack()
     }
     render(){
-        const deckName = this.props.navigation.state.params.entryId
+        const deckName = this.props.route.params.entryId
         return(
             
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -38,7 +39,7 @@ class AddCard extends React.Component{
 
                     </TextInput>
                     <Text style={styles.title}>
-                        Is this true or false?
+                        Answer to show!
                     </Text>
                     <TextInput
                     style={styles.input}
@@ -48,7 +49,7 @@ class AddCard extends React.Component{
                         
                     </TextInput>
                     <Text style={styles.title}>
-                        What is the correct answer>
+                        true or false only
                     </Text>
                     <TextInput
                     style={styles.input}
@@ -57,7 +58,7 @@ class AddCard extends React.Component{
                     >
                         
                     </TextInput>
-                    <SubmitButton onPress={()=>this.submitCard(deck)} style={styles.submitBtn}/>
+                    <SubmitButton onPress={()=>this.submitCard(deckName)} style={styles.submitBtn}/>
                 </View>
             </KeyboardAvoidingView>
         )
@@ -80,7 +81,8 @@ const styles=StyleSheet.create({
         color:'#333',
     },
     submitBtn:{
-        border:'0.5 #d6d7da',
+        borderWidth:0.5,
+        borderColor:'#d6d7da',
         padding:10,
         backgroundColor:orange,
         borderRadius:7,
@@ -90,7 +92,8 @@ const styles=StyleSheet.create({
         width:250,
         height:40,
         padding:8,
-        border:'1 #757575',
+        borderWidth:1,
+        borderColor:'#757575',
         margin:20,
         borderRadius:7
     }

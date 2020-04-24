@@ -28,12 +28,6 @@ class AddDeck extends React.Component{
                 >
                 </TextInput>
                 <SubmitButton onPress={this.submitName} style={styles.submitBtn}/>
-                <Button 
-                style={styles.submitBtn}
-                onPress={this.submitName}
-                title="Submit"
-                >
-                </Button>
             </View>
         )
     }
@@ -56,6 +50,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize:30,
         color:'#333',
+        textAlign:'center'
     },
     submitBtn:{
         borderWidth:0.5,

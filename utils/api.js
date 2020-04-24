@@ -9,12 +9,12 @@ const initialData={
             {
                 question:'Is SouthAfrica a country?',
                 answer:'No, it is a region!',
-                correctAnswer:false
+                correctAnswer:"false"
             },
             {
                 question:'Is Sindh a country?',
                 answer:'No, it is a Province!',
-                correctAnswer:true
+                correctAnswer:"false"
             }
         ]
     },
@@ -24,12 +24,12 @@ const initialData={
             {
                 question:'What is a closure?',
                 answer:'The combination of functions and a lexical enviroment within which those functions were declared!',
-                correctAnswer:true
+                correctAnswer:'true'
             },
             {
                 question:'What is a variable?',
                 answer:'something that stores infromation!',
-                correctAnswer:true
+                correctAnswer:'true'
             }
         ]
     }
@@ -39,6 +39,7 @@ export const getData=()=>{
     return initialData
 }
 export const getDecks=(decks)=>{
+    
     return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then(results=>{
         if(results===null){
@@ -46,13 +47,13 @@ export const getDecks=(decks)=>{
             return initialData
         }
         else{
-            return JSON.stringify(results)
+            return results
         }
     })
 }
 
 export function saveDeckTitle(title){
-    return AsyncStorage.mergeItem(FLASH_CARD_STORAGE_KEY,JSON.stringify({
+    return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY,JSON.stringify({
         [title]:{
             title:title,
             questions:[]
@@ -67,4 +68,7 @@ export function addCardToDeck(name,card){
         AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY,JSON.stringify(results))
         return results
     })
+}
+export function remove(){
+    return AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
 }

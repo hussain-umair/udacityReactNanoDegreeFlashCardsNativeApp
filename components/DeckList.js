@@ -10,10 +10,22 @@ class DeckList extends React.Component{
 
     componentDidMount(){
         getDecks()
-        .then(decks=>this.props.receiveAllDecks(decks))
-    }
+        .then(decks=>{
+            this.props.dispatch(receiveDecks(decks))}
+            )
+    
+        }
     render(){
         const {decks} = this.props
+        if(decks===undefined){
+            return(
+                <View>
+                    <Text>
+                        ...loading
+                    </Text>
+                </View>
+            )
+        }
         return(
             <View style={styles.container}>
                 {Object.keys(decks).map((deck)=>{
@@ -61,7 +73,7 @@ const styles = StyleSheet.create({
         shadowOpacity:1
     },
     cardText:{
-        fontSize:3,
+        fontSize:30,
         color:white
     },
     cardBtn:{
@@ -71,13 +83,13 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapDispatchToProps(dispatch){
-    return {
-        receiveAllDecks:(decks)=>dispatch(receiveDecks(decks)) 
-    }
-}
+// function mapDispatchToProps(dispatch){
+//     return {
+//         receiveAllDecks:(decks)=>dispatch(receiveDecks(decks)) 
+//     }
+// }
 function mapStateToProps(decks){
-    return decks 
+    return {decks}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(DeckList)
+export default connect(mapStateToProps)(DeckList)
